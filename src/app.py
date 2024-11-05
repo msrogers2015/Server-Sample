@@ -32,6 +32,7 @@ def anilox_table():
             );
         ''')
         con.commit()
+# Run function to ensure table is created upon server startup if it doesn't already exist.
 anilox_table()
 
 @app.route('/')
@@ -44,22 +45,23 @@ def page_not_found(e):
 
 @app.route('/anilox_list', methods=['GET'])
 def anilox_list():
-    con = get_db()
-    cur = con.cursor()
-    sort_metric = request.args.get('sort')
-    sort_order = request.args.get('method')
-    data = ['roller','asc']
-    if sort_metric in ['anilox', 'milage','clean_cycles']:
-        data[0] = sort_metric
-    if sort_order in ['asc', 'desc']:
-        data[1] = sort_order
-    cur.execute(f'SELECT * FROM anilox order by {data[0]} {data[1]}')
-    anilox = cur.fetchall()
-    con.close()
+    '''Return list of anilox data for display.'''
+    with get_db() as con:
+        cur = con.cursor()
+        sort_metric = request.args.get('sort')
+        sort_order = request.args.get('method')
+        data = ['roller','asc']
+        if sort_metric in ['anilox', 'milage','clean_cycles']:
+            data[0] = sort_metric
+        if sort_order in ['asc', 'desc']:
+            data[1] = sort_order
+        cur.execute(f'SELECT * FROM anilox order by {data[0]} {data[1]}')
+        anilox = cur.fetchall()
     return jsonify([dict(roller) for roller in anilox]), 200
 
 @app.route('/add_anilox', methods=['POST'])
 def new_anilox() -> None:
+    '''Add new anilox to database.'''
     record = request.json
     with get_db() as con:
         cur = con.cursor()
