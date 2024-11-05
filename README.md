@@ -28,7 +28,7 @@ After activating your virtual enviorment
 
 ## Help
 
-To experince the functionality of the server, start by opening the server via navigating to <a href="http://127.0.0.1:5000" target="_blank">http://127.0.0.1:5000</a>. You should get the message `Anitrac is running`. Navigate to <a href="http://127.0.0.1:5000/anilox_list" target="_blank">http://127.0.0.1:5000/anilox_list</a> to see the list of anilox rollers in the database. 
+To experince the functionality of the server, start by opening the server via navigating to <a href="http://127.0.0.1:5000" target="_blank">the homepage</a>. You should get the message `Anitrac is running`. Navigate to <a href="http://127.0.0.1:5000/anilox_list" target="_blank">anilox_list</a> to see the list of anilox rollers in the database. 
 
 To add a new anilox, naivate to the data folder in your terminal. Run the command `python add_anilox.py`. This should print `500`, verifying a new (random) anilox was added. Refresh your anilox list to update the screen.
 
